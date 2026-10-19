@@ -16,7 +16,21 @@ const questions=[
 const glyph={'2':['11111','00001','00001','11111','10000','10000','11111'],'0':['11111','10001','10001','10001','10001','10001','11111'],'/':['00001','00001','00010','00100','01000','10000','10000'],'1':['00100','01100','00100','00100','00100','00100','01110']};
 const W=27,H=17,target=Array(W*H).fill(null),codes=['M','E','T','R','I','N','H','O','A','U'];
 // Trái tim ở phần trên, dòng chữ 20/10 ở phía dưới.
-for(let y=0;y<8;y++)for(let x=0;x<27;x++){const nx=(x-13)/11,ny=(y-3)/4;const heart=Math.pow(nx*nx+ny*ny-1,3)-nx*nx*Math.pow(ny,3);if(heart<=0)target[y*W+x]=(y<3?'#ff759d':y<6?'#ed477d':'#ca346f')}
+// Pixel-art heart: two distinct upper lobes and a pointed lower tip.
+const heartRows=[
+ [[4,9],[17,22]],
+ [[2,11],[15,24]],
+ [[1,25]],
+ [[2,24]],
+ [[4,22]],
+ [[6,20]],
+ [[8,18]],
+ [[10,16]],
+ [[12,14]]
+];
+heartRows.forEach((spans,y)=>spans.forEach(([left,right])=>{
+ for(let x=left;x<=right;x++)target[y*W+x]=y<3?'#ff759d':y<6?'#ed477d':'#ca346f';
+}));
 const phrase=['2','0','/','1','0'];let offset=0;
 for(const ch of phrase){const p=glyph[ch],width=ch==='/'?3:5;for(let y=0;y<7;y++)for(let j=0;j<width;j++)if(p[y][j]==='1'){const xx=offset+j,yy=y+9;if(xx<W)target[yy*W+xx]=ch==='/'?'#f0a12d':ch==='2'?'#6957d9':ch==='0'?'#377bd5':ch==='1'?'#1c9e93':'#8c5bd1'}offset+=width+1}
 const cellCodes=target.map((color,i)=>color?codes[(i*7+Math.floor(i/W)*3)%10]:'XYZQKLPVDS'[(i*11+Math.floor(i/W))%10]);

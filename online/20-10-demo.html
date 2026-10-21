@@ -1,0 +1,48 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>20/10 - Ma trận tô màu yêu thương</title><style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#26324b;background:#fff7fa}*{box-sizing:border-box}body{margin:0;padding:18px}header{max-width:1450px;margin:auto;text-align:center;padding:12px 0 18px}h1{margin:0;color:#b72d67;font-size:clamp(23px,3vw,38px)}.sub{color:#7c5770;margin:6px}.layout{display:grid;grid-template-columns:minmax(320px,1fr) minmax(340px,1fr);gap:18px;max-width:1450px;margin:auto}.panel{background:white;border:2px solid #f2d6e4;border-radius:18px;padding:18px;box-shadow:0 7px 20px #d883a01a}.title{font-weight:850;color:#713259;margin:0 0 12px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fields label{font-size:14px;font-weight:700}input{width:100%;padding:11px;border:1px solid #d8b6c6;border-radius:10px;font:inherit}.message{margin:12px 0;padding:12px;border:1px dashed #f0b9ce;text-align:center;border-radius:10px;color:#b72d67;font-weight:800}.grid{display:grid;grid-template-columns:repeat(27,minmax(0,1fr));gap:2px;background:#f8dce7;padding:7px;border-radius:12px}.cell{aspect-ratio:1;background:#fff;border:1px solid #eee4ed;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:clamp(7px,.75vw,12px);font-weight:700;color:#4b4662}.cell.on{color:white;font-size:0;box-shadow:inset 0 0 0 1px #ffffff55}.legend{font-size:12px;margin:12px 0;color:#72576b}.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.score{background:#5753d6;color:white;border-radius:30px;padding:9px 14px;font-weight:800;white-space:nowrap}.question{border:1px solid #eee2e8;border-radius:14px;padding:13px;margin:10px 0}.question h3{font-size:15px;margin:0 0 10px}.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.opt{border:1px solid #e6dbe2;border-radius:10px;background:#fff;padding:10px;text-align:left;font:inherit;font-size:13px;cursor:pointer;min-height:44px}.opt b{display:inline-grid;place-items:center;background:#f5dbe6;color:#a63b68;width:23px;height:23px;border-radius:50%;margin-right:6px}.opt.correct{background:#16865e;color:white;border-color:#16865e}.opt.wrong{background:#fbe3e7;border-color:#c64d69}.opt:disabled{cursor:default}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}button.action{background:#b72d67;color:white;border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}button.secondary{background:#eef0f8;color:#26324b}.note{font-size:12px;color:#736272}#feedback{font-weight:700;color:#8d3561;min-height:25px}@media(max-width:850px){.layout{grid-template-columns:1fr}.grid{gap:1px}.cell{font-size:8px}}@media(max-width:550px){body{padding:8px}.panel{padding:10px}.fields{grid-template-columns:1fr}.grid{padding:3px;gap:1px}.cell{font-size:6px}.opts{grid-template-columns:1fr}.question{padding:9px}}@media print{body{padding:0;background:white}.actions,.note{display:none}.layout{display:block}.panel{box-shadow:none;margin:8px 0;break-inside:avoid}.question{break-inside:avoid}}
+</style></head><body><header><h1>🌸 MA TRẬN TÔ MÀU – GIẢI MÃ YÊU THƯƠNG 🌸</h1><p class="sub">Chào mừng Ngày Phụ nữ Việt Nam 20/10 · Trò chơi mẫu dành cho học sinh</p></header><main class="layout"><section class="panel"><h2 class="title">BẢNG MẬT MÃ – TÔ MÀU THEO ĐÁP ÁN ĐÚNG</h2><div class="fields"><label>Họ và tên<input id="student" placeholder="Nhập tên của em"></label><label>Lớp<input id="classroom" placeholder="Ví dụ: 12C2"></label></div><div class="message">Thông điệp bí mật: <span id="secret">HÃY TRẢ LỜI ĐỂ MỞ TRANH</span></div><div class="grid" id="grid" aria-label="Ma trận sắc màu 20 tháng 10"></div><p class="legend">🌷 Mỗi đáp án đúng mở màu cho các ô có cùng chữ mã. Chữ mã sẽ ẩn khi ô được tô để hình trái tim và 20/10 hiện rõ.</p><p class="note">Bản thử nghiệm độc lập. Không ghi thông tin học sinh lên máy chủ và không thay đổi dữ liệu WebApp chính.</p></section><section class="panel"><div class="bar"><h2 class="title">CHỦ ĐỀ: NGÀY PHỤ NỮ VIỆT NAM 20/10</h2><span class="score" id="score">0/10 đúng</span></div><div id="questions"></div><p id="feedback" aria-live="polite"></p><div class="actions"><button class="action secondary" id="retry">LÀM LẠI CÂU SAI</button><button class="action" id="print">IN / LƯU PDF</button><button class="action secondary" id="reset">CHƠI LẠI TỪ ĐẦU</button></div></section></main><script>
+const questions=[
+['Ngày Phụ nữ Việt Nam được kỷ niệm vào ngày nào?',['8/3','20/10','20/11','1/6'],1],
+['Ngày 20/10 gắn với sự kiện thành lập tổ chức tiền thân của tổ chức nào?',['Hội Liên hiệp Phụ nữ Việt Nam','Đoàn Thanh niên','Hội Chữ thập đỏ','Hội Khuyến học'],0],
+['Năm nào được xem là mốc ra đời của tổ chức tiền thân Hội Liên hiệp Phụ nữ Việt Nam?',['1945','1975','1930','1986'],2],
+['Việc làm nào thể hiện sự quan tâm thiết thực đến mẹ hoặc người chăm sóc em?',['Giúp việc nhà phù hợp','Chỉ tặng quà đắt tiền','Bỏ qua lời nhắc nhở','Chỉ gửi lời chúc qua mạng'],0],
+['Cách ứng xử nào thể hiện sự tôn trọng phụ nữ?',['Đánh giá theo định kiến','Lắng nghe và đối xử bình đẳng','Cho rằng một số nghề chỉ dành cho nam','Ngắt lời khi người khác phát biểu'],1],
+['Ai là người nữ anh hùng gắn với cuộc khởi nghĩa chống Đông Hán năm 40?',['Bà Triệu','Hai Bà Trưng','Nguyễn Thị Định','Võ Thị Sáu'],1],
+['Nhân vật nữ nào nổi tiếng với cuộc khởi nghĩa chống Đông Ngô vào thế kỷ III?',['Bà Triệu','Ỷ Lan','Bùi Thị Xuân','Nguyễn Trung Trực'],0],
+['Trong lớp học, hành động nào góp phần xây dựng môi trường bình đẳng?',['Phân công nhiệm vụ theo giới','Tôn trọng khả năng và sở thích của từng bạn','Chỉ để bạn nam làm trưởng nhóm','Trêu chọc bạn vì giới tính'],1],
+['Lời chúc 20/10 nào phù hợp nhất với cô giáo?',['Chúc cô luôn mạnh khỏe, hạnh phúc và nhiều niềm vui','Chúc cô không phải dạy học nữa','Chúc cô chỉ cho điểm cao','Chúc cô bỏ hết bài tập'],0],
+['Thông điệp nào phù hợp với ý nghĩa ngày 20/10?',['Yêu thương, tôn trọng và biết ơn','Chỉ cần quan tâm trong một ngày','Chỉ người lớn mới cần được tôn trọng','Chỉ quà tặng mới thể hiện tình cảm'],0]
+];
+const glyph={'2':['11111','00001','00001','11111','10000','10000','11111'],'0':['11111','10001','10001','10001','10001','10001','11111'],'/':['00001','00001','00010','00100','01000','10000','10000'],'1':['00100','01100','00100','00100','00100','00100','01110']};
+const W=27,H=17,target=Array(W*H).fill(null),codes=['M','E','T','R','I','N','H','O','A','U'];
+// Trái tim ở phần trên, dòng chữ 20/10 ở phía dưới.
+// Pixel-art heart: two distinct upper lobes and a pointed lower tip.
+const heartRows=[
+ [[4,9],[17,22]],
+ [[2,11],[15,24]],
+ [[1,25]],
+ [[2,24]],
+ [[4,22]],
+ [[6,20]],
+ [[8,18]],
+ [[10,16]],
+ [[12,14]]
+];
+heartRows.forEach((spans,y)=>spans.forEach(([left,right])=>{
+ for(let x=left;x<=right;x++)target[y*W+x]=y<3?'#ff759d':y<6?'#ed477d':'#ca346f';
+}));
+const phrase=['2','0','/','1','0'];let offset=0;
+for(const ch of phrase){const p=glyph[ch],width=ch==='/'?3:5;for(let y=0;y<7;y++)for(let j=0;j<width;j++)if(p[y][j]==='1'){const xx=offset+j,yy=y+9;if(xx<W)target[yy*W+xx]=ch==='/'?'#f0a12d':ch==='2'?'#6957d9':ch==='0'?'#377bd5':ch==='1'?'#1c9e93':'#8c5bd1'}offset+=width+1}
+const cellCodes=target.map((color,i)=>color?codes[(i*7+Math.floor(i/W)*3)%10]:'XYZQKLPVDS'[(i*11+Math.floor(i/W))%10]);
+const groups=codes.map(code=>target.map((v,i)=>v&&cellCodes[i]===code?i:-1).filter(i=>i>=0));
+const state=Array(10).fill(null), grid=document.getElementById('grid'),qroot=document.getElementById('questions');
+const cells=target.map((_,i)=>{const n=document.createElement('div');n.className='cell';n.textContent=cellCodes[i];grid.append(n);return n});
+function render(){qroot.innerHTML='';questions.forEach((q,i)=>{const card=document.createElement('article');card.className='question';const h=document.createElement('h3');h.textContent='Câu '+(i+1)+'. '+q[0];card.append(h);const opts=document.createElement('div');opts.className='opts';q[1].forEach((label,j)=>{const b=document.createElement('button');b.className='opt'+(state[i]!==null?(j===q[2]?' correct':j===state[i]?' wrong':''):'');b.disabled=state[i]!==null;const k=document.createElement('b');k.textContent=j===q[2]?codes[i]:('BCDF'[j]);b.append(k,document.createTextNode(label));b.onclick=()=>{state[i]=j;render()};opts.append(b)});card.append(opts);qroot.append(card)});
+const correct=state.filter((v,i)=>v===questions[i][2]).length,done=state.filter(v=>v!==null).length;
+document.getElementById('score').textContent=correct+'/10 đúng';const revealed=new Set();groups.forEach((g,i)=>{if(state[i]===questions[i][2])g.forEach(v=>revealed.add(v))});
+cells.forEach((n,i)=>{n.style.background=revealed.has(i)?target[i]:'#ffffff';n.classList.toggle('on',revealed.has(i));n.textContent=revealed.has(i)?'':cellCodes[i]});
+document.getElementById('secret').textContent=correct===10?'YÊU THƯƠNG VÀ BIẾT ƠN – CHÚC MỪNG 20/10!':done===10?'Hãy làm lại câu sai để hoàn thành tranh':'HÃY TRẢ LỜI ĐỂ MỞ TRANH';
+document.getElementById('feedback').textContent=correct===10?'Xuất sắc! Em đã giải mã thành công bức tranh 20/10.':done===10?'Em đã hoàn thành lượt chơi. Có thể làm lại những câu chưa đúng.':'Đã trả lời '+done+'/10 câu.';
+}
+document.getElementById('retry').onclick=()=>{state.forEach((v,i)=>{if(v!==questions[i][2])state[i]=null});render()};document.getElementById('reset').onclick=()=>{state.fill(null);render()};document.getElementById('print').onclick=()=>window.print();render();
+</script></body></html>
